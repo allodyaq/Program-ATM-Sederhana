@@ -1,0 +1,186 @@
+#KELOMPOK 5
+#Deskripsi: Simulasi ATM Sederhana Tugas Besar Pengenalan Komputasi
+
+
+#Kamus
+#fungsi print: perintah untuk mengekspresikan sesuatu
+#print berfungsi untuk menge-print kalimat di dalam kurung (ex: print("abc")) maka dia akan menghasilkan output tulisan abc
+#fungsi variabel: fungsi bantu yang biasanya digunakan untuk memudahkan sesuatu ke dalam terminal
+#[ ] merupakan list
+#koma (,) dalam list berfungsi untuk memisahkan data
+
+
+#Algoritma
+
+
+#List/Array
+no_rekening=["16523140","16523231"]
+#Kita menggunakan variabel no_rekening untuk memasukkan list nomor rekening para user ATM
+
+no_pin=["140","231"]
+#Kita menggunakan variabel no_pin untuk memasukkan PIN
+
+saldo_user=[1000,2000]
+#Kita menggunakan variabel saldo_user untuk menyatakan jumlah uang tunai kita di dalam bank
+
+#Dari tiga variabel diatas, kita mendapatkan 3 array yaitu no_rekening, no_pin, dan saldo_user
+
+
+#Variabel pembantu
+deposito=0
+tarik_tunai=0
+balance=0
+nominal_tf=0
+i=0
+
+while True:
+    print("                                         ")
+    print("=========================================")
+    print("-----Selamat Datang di ATM Bank STEI-----")
+    print("=========================================")
+    print("                                         ")
+    print("                                         ")
+    print("*****************************************")
+    print("=<< 1. Tarik Tunai                    >>=")
+    print("=<< 2. Setor Tunai                    >>=")
+    print("=<< 3. Cek Saldo                      >>=")
+    print("=<< 4. Transfer Antarrekening         >>=")
+    print("=<< 5. Keluar                         >>=")
+    print("*****************************************")
+
+    opsi_angka = input("Pilih Nomor untuk Jenis Transaksi:")
+
+    if opsi_angka == "1":
+        print("Memproses Penarikan Tunai")
+        n = 0
+        while n < 1:
+            k = -1
+            no_rek = input("Masukkan Nomor Rekening (0 untuk kembali ke menu utama):")
+            if no_rek == "0":
+                break  # Kembali ke menu utama
+            while k < len(no_rekening) - 1:
+                k = k + 1
+                if no_rek == no_rekening[k]:
+                    pin = input("Masukkan Pin:")
+                    if pin == no_pin[k]:
+                        n = n + 1
+                        print("Jumlah Saldo Anda: Rp", saldo_user[k])
+                        balance = saldo_user[k]
+
+                        tarik_tunai = int(input("Masukkan jumlah uang yang ditarik: Rp"))
+                        if tarik_tunai > balance:
+                            print("Maaf, Saldo Anda tidak mencukupi!")
+                            break
+                        else:
+                            balance = balance - tarik_tunai
+                            print("Penarikkan berhasil. Saldo Anda saat ini: Rp", balance)
+                            saldo_user[k] = balance
+                            break
+                    else:
+                        print("Nomor rekening dan pin Anda tidak cocok!")
+                        break
+                
+    elif opsi_angka == "2":
+        print("Memproses Setor Tunai")
+        n = 0
+        while n < 1:
+            k = -1
+            no_rek = input("Masukkan Nomor Rekening (0 untuk kembali ke menu utama):")
+            if no_rek == "0":
+                break  # Kembali ke menu utama
+            while k < len(no_rekening) - 1:
+                k = k + 1
+                if no_rek == no_rekening[k]:
+                    pin = input("Masukkan Pin:")
+                    if pin == no_pin[k]:
+                        n = n + 1
+                        print("Jumlah saldo Anda: Rp", saldo_user[k])
+                        balance = saldo_user[k]
+
+                        deposito = int(input("Masukkan jumlah uang yang ingin ditabung: Rp"))
+                        balance = balance + deposito
+                        saldo_user[k] = balance
+                        print("Setor Tunai berhasil. Saldo Anda saat ini: Rp", balance)
+                        break
+                    else:
+                        print("Nomor rekening dan pin Anda tidak cocok!")
+                        break
+
+    elif opsi_angka == "3":
+        print("Memproses Cek Saldo")
+        n = 0
+        while n < 1:
+            k = -1
+            no_rek = input("Masukkan Nomor Rekening (0 untuk kembali ke menu utama):")
+            if no_rek == "0":
+                break  # Kembali ke menu utama
+            while k < len(no_rekening) - 1:
+                k = k + 1
+                if no_rek == no_rekening[k]:
+                    pin = input("Masukkan Pin:")
+                    if pin == no_pin[k]:
+                        n = n + 1
+                        print("Jumlah saldo Anda: Rp", saldo_user[k])
+                        break
+                    else:
+                        print("Nomor rekening dan pin Anda tidak cocok!")
+                        break
+                
+    elif opsi_angka == "4":
+        print("Memproses Transfer")
+        n = 0
+        while n < 1:
+            k = -1
+            no_rek = input("Masukkan Nomor Rekening (0 untuk kembali ke menu utama):")
+            if no_rek == "0":
+                break  # Kembali ke menu utama
+            while k < len(no_rekening) - 1:
+                k = k + 1
+                if no_rek == no_rekening[k]:
+                    pin = input("Masukkan Pin:")  # User memasukkan pin
+                    if pin == no_pin[k]:
+                        n = n + 1
+                        print("Jumlah saldo Anda: Rp", saldo_user[k])
+                        sender_balance = saldo_user[k]
+
+                        # Memeriksa apakah nomor rekening tujuan ada dalam list
+                        receiver_account = input("Masukkan nomor rekening tujuan (0 untuk batal): ")
+                        if receiver_account == "0":
+                            break  # Batal transfer dan kembali ke menu utama
+                        if receiver_account in no_rekening:
+                            receiver_index = no_rekening.index(receiver_account)
+                            receiver_balance = saldo_user[receiver_index]
+
+                            # Memproses jumlah uang yang akan ditransfer
+                            nominal_tf = int(input("Masukkan jumlah saldo yang ingin ditransfer: Rp"))
+
+                            # Konfirmasi transaksi
+                            confirmation = input(f"Apakah Anda akan mengirimkan dana sebesar Rp {nominal_tf} ke nomor rekening {receiver_account}? (Y/N): ")
+
+                            if confirmation.upper() == "Y":
+                                if sender_balance >= nominal_tf:
+                                    sender_balance -= nominal_tf
+                                    receiver_balance += nominal_tf
+                                    saldo_user[k] = sender_balance
+                                    saldo_user[receiver_index] = receiver_balance
+                                    print(" ")
+                                    print("-----Transfer Berhasil-----")
+                                    print(f"Saldo Anda saat ini: Rp {sender_balance}")
+                                    break
+                                else:
+                                    print("Saldo Anda tidak mencukupi!")
+                                    break
+                            else:
+                                print("Transaksi dibatalkan.")
+                                break
+                        else:
+                            print("Nomor rekening tujuan tidak ditemukan.")
+                            break
+                    else:  # Apabila nomor rekening dan pin tidak sesuai dengan array
+                        print("Nomor rekening dan pin Anda tidak cocok!")
+                        print(" ")
+                        break
+
+    elif opsi_angka == "5":
+        print("Terima kasih telah menggunakan ATM Bank STEI. Sampai jumpa!")
+        break
